@@ -2,52 +2,89 @@
 <head> </head>  
 <body>  
 <p>Welcome to Firefly Services</p>  
-<form>  
+<form> 
   <div>
-    <table cellpadding="0" cellspacing="0" border="0" style = "border:0px solid transparent;">
-      <tr >
-        <td width = "200" height = "200"><div >
+  <table cellpadding="0" cellspacing="0" border="0" style = "border:0px solid transparent; margin-bottom: 20px">
+    <tr>
+      <td style="padding:0 15px 0 15px;" width = "200" height = "200"> 
+        <div style="text-align: center;" >
           <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-          <label for="file" style="cursor: pointer;">Upload Image</label>
-        </div></td>
-        <td width = "200" height = "200"><div>
-          <img id="output" />
-       </div></td>
-      </tr>
-      <tr>
-        <td width = "200" height = "200"><div>
-          <label>Choose size to expand</label>
-          <select id = "sizelist" onchange="expand()" > 
-          <option></option>
-          <option>1024x1024</option>  
-          <option>1792x1024</option>  
-          <option>1408x1024</option>  
-          <option>1024x1408</option>  
-          </select></div></td>
-        <td width = "200" height = "200"><div>
-          <img id="expandoutput"  />
+          <label for="file" style="cursor: pointer; text-align: center;color:rgb(23, 63, 99)">Upload Image</label>
         </div>
       </td>
-      </tr>
-      <tr>
-        <td width = "200" height = "200"><div>
-          <label onclick="removeBackground()">Remove Background</label>
-        </div></td>
-        <td width = "200" height = "200"><div>
-          <img id="removebackGroundoutput" />
-        </div>
+      <td style="padding:0 15px 0 15px;" width = "200" height = "200">
+        <img id="output"/>
+      </td>
+    </tr>
+  </table>
+
+  <table cellpadding="0" cellspacing="0" border="0" style = "border:0px solid transparent; margin-bottom: 50px">
+    <tr style="margin-bottom: 20px;">
+      <td style="padding:0 15px 0 15px;"> 
+          <div id="imageDiv" style="display: none;margin-bottom: 20px;">
+            <select id="optionList" onchange="selectOption()" class="selectBox" style="width: 150px;"> 
+              <option></option>
+              <option>Expand</option>  
+              <option>Remove Background</option>  
+              <option>Blur Depth</option>  
+          </select></div>
+      </td>
+    </tr>
+    <tr id="expandtr">
+        <td style="padding:0 15px 0 15px;"  id="imageTd"> 
+          <div id="expandDiv" style="display: none;">
+            <table>
+              <tr>
+                <td>
+                  <span style="padding-right:100px">Choose size to expand:</span>
+                  <select id="sizelist" onchange="expand()" class="selectBox" style="width: 150px;"> 
+                    <option></option>
+                    <option>1024x1024</option>  
+                    <option>1792x1024</option>  
+                    <option>1408x1024</option>  
+                    <option>1024x1408</option> 
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img id="expandoutput"  />
+                </td>
+              </tr>
+            </table>
+          </div>
         </td>
       </tr>
-      <tr>
-        <td width = "200" height = "200"><div>
-          <label onclick="blurDepth()">Blur Depth</label>
-        </div></td>
-        <td width = "200" height = "200"><div>
-          <img id="blurDepthoutput" />
-        </div>
+      <tr id="rbtr">
+        <td style="padding:0 15px 0 15px;">
+          <table cellpadding="0" cellspacing="0" border="0" style = "border:0px solid transparent; margin-bottom: 50px">
+            <tr style="margin-bottom: 20px;"><td style="padding:0 15px 0 15px;"></td></tr>
+            <tr> 
+              <td style="padding:0 15px 0 15px;">
+                <div id="removeBackgroundDiv" style="display: none;">
+                  <img id="removebackGroundoutput" />
+              </div>
+              </td>
+            </tr>
+          </table>
         </td>
       </tr>
-    </table>
+      <tr id="bdtr">
+        <td style="padding:0 15px 0 15px;">
+          <table cellpadding="0" cellspacing="0" border="0" style = "border:0px solid transparent; margin-bottom: 50px">
+            <tr style="margin-bottom: 20px;"><td style="padding:0 15px 0 15px;"></td></tr>
+            <tr> 
+              <td style="padding:0 15px 0 15px;">
+               <div id="blurDepthDiv" style="display: none;">
+                  <img id="blurDepthoutput" />
+               </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+  </table>
+</div>
 </div>
 </form>  
 </body>  

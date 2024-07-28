@@ -3,7 +3,7 @@
  /// Load File to S3 Bucket 
  /// </summary>
 async function loadFile(event) {
-    var image = document.getElementById('output');
+  var image = document.getElementById('output');
     var fileName = event.target.files[0].name;
     const rawResponse = await fetch(`https://localhost:44356/api/S3/upload?fileName=${fileName}`, {
         method: 'POST',
@@ -17,6 +17,42 @@ async function loadFile(event) {
   console.log("uploaded image");
   console.log(content);
   image.src = content;
+  document.getElementById('imageDiv').style.display = "";
+}
+
+async function selectOption()
+{
+  var optionList = document.getElementById("optionList")
+    var option = optionList.options[optionList.selectedIndex].text; 
+
+    if(option == "Expand")
+    {
+      document.getElementById('imageDiv').style.display = "";
+      document.getElementById('expandDiv').style.display = "";
+      document.getElementById('blurDepthDiv').style.display = "none";
+      document.getElementById('removeBackgroundDiv').style.display = "none";
+    }
+    else if(option == "Remove Background")
+    {
+      document.getElementById('imageDiv').style.display = "";
+      document.getElementById('removeBackgroundDiv').style.display = "";
+      document.getElementById('expandDiv').style.display = "none";
+      document.getElementById('blurDepthDiv').style.display = "none";
+      removeBackground();
+    }
+    else if(option == "Blur Depth")
+    {
+      document.getElementById('imageDiv').style.display = "";
+      document.getElementById('removeBackgroundDiv').style.display = "none";
+      document.getElementById('expandDiv').style.display = "none";
+      document.getElementById('blurDepthDiv').style.display = "";
+      blurDepth();
+    }
+    else
+    {
+      document.getElementById('imageDiv').style.display = "none";
+    }
+
 }
  /// <summary>
  /// Expand Image using Adobe Firefly Service
@@ -50,7 +86,6 @@ async function expand()
   const content = await rawResponse.json(); 
   var expandImage = document.getElementById('expandoutput');
   expandImage.src = content;
-
   console.log("expanded image");
   console.log(content);
 }
@@ -88,16 +123,18 @@ async function removeBackground()
   
   console.log("response");
   console.log(content);
-  console.log(content.link.self.status, content.link.self.href);
+  console.log(content.link.self.status, content.link.self.href, content.input);
 
   var rbImage = document.getElementById('removebackGroundoutput');
   if(content.link.self.status == "succeeded")
+  {
     rbImage.src = imageUrl;
+  }
   else
     rbImage.src = ""; 
 
     console.log("removed background image");
-    console.log(imageUrl);
+    console.log(content.input);
     
 }
 
@@ -142,14 +179,16 @@ async function blurDepth()
   let content = await rawResponse.json(); 
   console.log("response");
   console.log(content);
-  console.log(content.link.self.status, content.link.self.href);
+  console.log(content.link.self.status, content.link.self.href, content.input);
   
   var blurDepthImage = document.getElementById('blurDepthoutput');
   if(content.link.self.status == "succeeded")
+  {
       blurDepthImage.src = imageUrl;
+  }
   else
       blurDepthImage.src = "";
 
       console.log("blurred image");
-      console.log(imageUrl);
+      console.log(content.input);
 }
