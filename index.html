@@ -5,17 +5,17 @@
 <form>  
   <div>
     <table cellpadding="0" cellspacing="0" border="0" style = "border:0px solid transparent;">
-      <tr width = "200" height = "200" cellpadding="0" cellspacing="0" border="0">
-        <td width = "200" height = "200" ><div width = "200" height = "200">
+      <tr >
+        <td width = "200" height = "200"><div >
           <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
           <label for="file" style="cursor: pointer;">Upload Image</label>
         </div></td>
-        <td width = "200" height = "200"><div width = "200" height = "200">
+        <td width = "200" height = "200"><div>
           <img id="output" />
        </div></td>
       </tr>
-      <tr width = "200" height = "200">
-        <td width = "200" height = "200"><div width = "200" height = "200">
+      <tr>
+        <td width = "200" height = "200"><div>
           <label>Choose size to expand</label>
           <select id = "sizelist" onchange="expand()" > 
           <option></option>
@@ -24,13 +24,13 @@
           <option>1408x1024</option>  
           <option>1024x1408</option>  
           </select></div></td>
-        <td width = "200" height = "200"><div width = "200" height = "200"></div>
+        <td width = "200" height = "200"><div>
           <img id="expandoutput"  />
         </div>
       </td>
       </tr>
-      <tr width = "200" height = "200">
-        <td width = "200" height = "200" ><div width = "200" height = "200">
+      <tr>
+        <td width = "200" height = "200"><div>
           <label onclick="removeBackground()">Remove Background</label>
         </div></td>
         <td width = "200" height = "200"><div>
@@ -38,11 +38,11 @@
         </div>
         </td>
       </tr>
-      <tr width = "200" height = "200">
-        <td width = "200" height = "200" ><div width = "200" height = "200">
+      <tr>
+        <td width = "200" height = "200"><div>
           <label onclick="blurDepth()">Blur Depth</label>
         </div></td>
-        <td width = "200" height = "200"><div width = "200" height = "200">
+        <td width = "200" height = "200"><div>
           <img id="blurDepthoutput" />
         </div>
         </td>

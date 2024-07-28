@@ -5,7 +5,7 @@
 async function loadFile(event) {
     var image = document.getElementById('output');
     var fileName = event.target.files[0].name;
-    const rawResponse = await fetch(`https://localhost:7043/api/S3/upload?fileName=${fileName}`, {
+    const rawResponse = await fetch(`https://localhost:44356/api/S3/upload?fileName=${fileName}`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -14,6 +14,7 @@ async function loadFile(event) {
       body: `fileName=${fileName}`
     });
   const content = await rawResponse.json(); 
+  console.log("uploaded image");
   console.log(content);
   image.src = content;
 }
@@ -24,7 +25,6 @@ async function expand()
 {
     var selectedsize = document.getElementById("sizelist")
     var size = selectedsize.options[selectedsize.selectedIndex].text;  
-    alert(size);
     var dimentions = size.toString().split("x");
     var imageUrl = document.getElementById('output').src;
     let payload = {
@@ -39,7 +39,7 @@ async function expand()
         }
       };
 
-    const rawResponse = await fetch("https://localhost:7043/api/Image/expand", {
+    const rawResponse = await fetch("https://localhost:44356/api/Image/expand", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -48,9 +48,11 @@ async function expand()
         body: JSON.stringify(payload)
     });
   const content = await rawResponse.json(); 
-  console.log(content);
   var expandImage = document.getElementById('expandoutput');
   expandImage.src = content;
+
+  console.log("expanded image");
+  console.log(content);
 }
 
  /// <summary>
@@ -67,11 +69,14 @@ async function removeBackground()
         },
         "output": {
           "href": imageUrl,
-          "storage": "external"
+          "storage": "external",
+          "mask": {
+            "format": "soft"
+          }
         }
-      }
+      };
 
-    const rawResponse = await fetch("https://localhost:7043/api/Image/remove-background", {
+    const rawResponse = await fetch("https://localhost:44356/api/Image/remove-background", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -79,12 +84,20 @@ async function removeBackground()
         },
         body: JSON.stringify(payload)
     });
-  const content = await rawResponse.json();
+  let content = await rawResponse.json();
+  
+  console.log("response");
+  console.log(content);
+  console.log(content.link.self.status, content.link.self.href);
+
   var rbImage = document.getElementById('removebackGroundoutput');
-  if(content == "succeeded")
+  if(content.link.self.status == "succeeded")
     rbImage.src = imageUrl;
   else
-    rbImage.src = "";
+    rbImage.src = ""; 
+
+    console.log("removed background image");
+    console.log(imageUrl);
     
 }
 
@@ -116,9 +129,9 @@ async function blurDepth()
             "href": imageUrl
             }
         ]
-    }
+    };
 
-    const rawResponse = await fetch("https://localhost:7043/api/Image/depth-blur", {
+    const rawResponse = await fetch("https://localhost:44356/api/Image/depth-blur", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -126,10 +139,17 @@ async function blurDepth()
         },
         body: JSON.stringify(payload)
     });
-  const content = await rawResponse.json(); 
+  let content = await rawResponse.json(); 
+  console.log("response");
+  console.log(content);
+  console.log(content.link.self.status, content.link.self.href);
+  
   var blurDepthImage = document.getElementById('blurDepthoutput');
-  if(content == "succeeded")
+  if(content.link.self.status == "succeeded")
       blurDepthImage.src = imageUrl;
   else
       blurDepthImage.src = "";
+
+      console.log("blurred image");
+      console.log(imageUrl);
 }
